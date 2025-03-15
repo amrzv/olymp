@@ -165,12 +165,7 @@ $2\gamma$
 не перевищує $\frac{p+3}{4}$.
 <details><summary>Доведення</summary>
 
-Якщо $k \neq 0$, то існує єдине $k^{-1}$: $k \cdot k^{-1} \equiv 1 \pmod{p}$ – очевидно. З властивості маємо $\left( \frac{ak+b}{p} \right) = \left( \frac{a}{p} \right) \left( \frac{x+ba^-1}{p} \right)$, а, тому система еквівалентна $\begin{cases}
-\left( \frac{x}{p} \right) = \alpha_1 \\
-\left( \frac{x+ba^-1}{p} \right) = \alpha_2 \left( \frac{a}{p} \right)
-\end{cases}$
-
-Розглянемо суму $A = \sum_{j=0}^{p-1} \left( \left(\frac{j}{p}\right) + \alpha_1 \right)\left(\left( \frac{j+b}{p}\right) + \alpha_2 \right)$, кожний доданок рівний $4\alpha_1 \alpha_2$, якщо $j$ – розв'язок системи і нуль в усіх інших випадках, окрім $j = 0$ (тоді $\alpha_1 \left(\left(\frac{b}{p}\right) + \alpha_2\right)$) і $j=p-b$ (тоді $\alpha_2 \left(\alpha_1 + \left(\frac{-b}{p}\right) \right)$), тобто
+Якщо $k \neq 0$, то існує єдине $k^{-1}$: $k \cdot k^{-1} \equiv 1 \pmod{p}$ – очевидно. З властивості маємо $\left( \frac{ak+b}{p} \right) = \left( \frac{a}{p} \right) \left( \frac{x+ba^-1}{p} \right)$, а, тому система еквівалентна $\begin{cases} \left( \frac{x}{p} \right) = \alpha_1 \\ \left( \frac{x+ba^-1}{p} \right) = \alpha_2 \left( \frac{a}{p} \right) \end{cases}$. Розглянемо суму $A = \sum_{j=0}^{p-1} \left( \left(\frac{j}{p}\right) + \alpha_1 \right)\left(\left( \frac{j+b}{p}\right) + \alpha_2 \right)$, кожний доданок рівний $4\alpha_1 \alpha_2$, якщо $j$ – розв'язок системи і нуль в усіх інших випадках, окрім $j = 0$ (тоді $\alpha_1 \left(\left(\frac{b}{p}\right) + \alpha_2\right)$) і $j=p-b$ (тоді $\alpha_2 \left(\alpha_1 + \left(\frac{-b}{p}\right) \right)$), тобто
 ```math
 A = 4 \alpha_1 \alpha_2 n + \alpha_1 \left( \left( \frac{b}{p} \right) + \alpha_2 \right) + \alpha_2 \left(\left( \frac{-b}{p}\right) + \alpha_1 \right).
 ```
@@ -339,12 +334,11 @@ _**Зауваження 2.**_ Той факт, що кола $(AB_1C_1)$, $(A_1B
 2. Існує багато потрібних прикладів. Наприклад, $n = 2^k + 1$. Перетворення системи станів ламп можна подати матрицею, що має $2^k + 1$ стовпчиків. Верхні $2^k$ рядків цієї матриці вже обговорювалися вище, оскільки останній елемент (самий правий) не впливає на поведінку решти елементів, оскільки поруч з ним також нуль, лише в останній момент, коли там з'являється 1 ми бачимо, як він впливає на передостанній елемент.
     
     Таким чином ми маємо такий ряд – $(0, 0, \ldots, 0, 1, 1)$. Але це є другий ряд матриці зі зміненою на протилежну орієнтацію. Оскільки ця ситуація вже була, то вона й далі буде періодично повторюватись, таким чином стану, де усі лампи «викл» не буде.
-
 </details>
 
 ## 12
 Довести, що існує нескінченно багато таких натуральних $n$, що усі прості дільники числа $(n^2 + n + 1)$ не перевищують $
-sqrt{n}$.
+\sqrt{n}$.
 
 <details><summary>Розв'язання</summary>
 
