@@ -174,7 +174,7 @@ $$h_j(n) = \max\left\{1, \lfloor \frac{jn}{2008} \rfloor\right\}$$
 
 Розглянемо розклад числа $b$ на прості множники: $b = p_1^{\alpha_1}\cdots p_s^{\alpha_s}$, де $p_1$, $\cdots$, $p_s$ – різні прості числа. Доведемо, що всі показники $\alpha_i$ діляться на $n$, тоді можна буде покласти $A = p_1^\frac{\alpha_1}{n}\cdots p_s^\frac{\alpha_s}{n}$.
 
-Застосуємо умову до $k = b^2$. Число $b - a_k^n$ ділиться на $b^2$ за умовою, а тому для кожного $1 \le i \le s$, воно також ділиться на $p_i^{2\alpha_i} > p_i^{\alpha_i}$. Тому $a_k^n \equiv b \equiv 0 \mod p_i^{\alpha_i}$ та $a_k^n \equiv b \not\equiv 0 \mod p_i^{\alpha_i + 1}$, що доводить, що степінь $p_i$ в розкладі $a_k^n$ є $p_i^{\alpha_i}$. А так як $a_k^n$ - це повна $n$-та степінь, то $n\mid \alpha_i$.
+Застосуємо умову до $k = b^2$. Число $b - a_k^n$ ділиться на $b^2$ за умовою, а тому для кожного $1 \le i \le s$, воно також ділиться на $p_i^{2\alpha_i} > p_i^{\alpha_i}$. Тому $a_k^n \equiv b \equiv 0 \pmod{p_i^{\alpha_i}}$ та $a_k^n \equiv b \not\equiv 0 \pmod{p_i^{\alpha_i + 1}}$, що доводить, що степінь $p_i$ в розкладі $a_k^n$ є $p_i^{\alpha_i}$. А так як $a_k^n$ - це повна $n$-та степінь, то $n\mid \alpha_i$.
 </details>
 
 ## 11
