@@ -74,11 +74,6 @@ def is_escaped(text: str, index: int) -> bool:
 def normalize_plain(text: str) -> str:
     text = text.replace("\u2116 ", "\u2116")
     text = re.sub("озв'яз", "озв’яз", text)
-    # text = re.sub(r"\b\u0440\u043e\u0437\u0432'\u044f\u0437", "\u0440\u043e\u0437\u0432\u2019\u044f\u0437", text)
-    # text = text.replace(
-    #     "<summary>\u0420\u043e\u0437\u0432'\u044f\u0437\u0430\u043d\u043d\u044f</summary>",
-    #     f"<summary>{SOLUTION_SUMMARY}</summary>",
-    # )
     return text
 
 
