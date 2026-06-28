@@ -32,7 +32,7 @@ ab \le \frac{a^2 + b^2}{2} \implies 2a^2 + 3ab - c^2 \le 2a^2 + \frac{3}{2}(a^2 
 
 Нехай $O$ - точка перетину діагоналей, $h = BB_1 = CC_1$ - висоти трапеції. Тоді $\varphi = \angle OAD = \angle B_1BD$. Точки $A$, $M$, $O$, $B$ - циклічні за умовою ($\angle AMB = \angle AOB = 90^\circ$), тому $\angle MAO = \angle MBO$ і $\angle OCM = \angle MDO$. Отже $\triangle AMC \sim \triangle BMD$, $\triangle BB_1D \sim \triangle CAC_1$, тому маємо такі рівності:
 ```math
-\frac{AM}{BM} = \frac{AC}{BD} = \frac{CC_1}{B_1D} = \frac{BB_1}{B_1D} \implies \triangle AMB \sim \triangle BB_1D \text{ і } \varphi = \angle BAM = \angle CAD.
+\frac{AM}{BM} = \frac{AC}{BD} = \frac{CC_1}{B_1D} = \frac{BB_1}{B_1D} \implies \triangle AMB \sim \triangle BB_1D \text{і} \varphi = \angle BAM = \angle CAD.
 ```
 Отже $AP$ - бісектриса $\angle MAC$. Оскільки $\angle MCO = \angle OAD = \angle OCB$, то $CP$ - бісектриса $\angle MCA$, тому $P$ - інцентр $\triangle AMC$ і $\angle PMB =|\frac{1}{2}\angle AMC - \angle BMC|$. Аналогічно $\angle QMC =|\frac{1}{2}\angle BMD - \angle BMC|$, отже вони рівні, що й треба було довести.
 </details>
@@ -137,39 +137,39 @@ $2\gamma$
 
 Для лишка $a$ покладемо:
 ```math
-\left( \frac{a}{p} \right) =
+\left(\frac{a}{p}\right) =
 \begin{cases}
 0, & a \equiv 0 \pmod{p} \\
 1, & a \not\equiv 0 \pmod{p}, a \equiv x^2 \pmod{p} \\
 -1, & \text{\it{усіх інших випадках}}
 \end{cases}
 ```
-де $\left( \frac{\bullet}{p} \right)$ - символ Лежандра.
+де $\left(\frac{\bullet}{p}\right)$ - символ Лежандра.
 
 Декілька простих властивостей.
 
-1. $\left( \frac{ab}{p} \right) = \left( \frac{a}{p} \right) \left( \frac{b}{p} \right)$,
-2. якщо $\left( \frac{a}{p} \right) = 1$, то $a$ називається квадратичним лишком і лишків та нелишків рівна кількість: $\frac{p-1}{2}$.
+1. $\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right) \left(\frac{b}{p}\right)$,
+2. якщо $\left(\frac{a}{p}\right) = 1$, то $a$ називається квадратичним лишком і лишків та нелишків рівна кількість: $\frac{p-1}{2}$.
 
-**Лема**. Нехай $\alpha_1, \alpha_2 \in \{ \pm 1 \}$, $a \not\equiv 0 \pmod{p}$, $b \equiv 0 \pmod{p}$, тоді кількість розв’язків системи
+**Лема**. Нехай $\alpha_1, \alpha_2 \in \{\pm 1\}$, $a \not\equiv 0 \pmod{p}$, $b \equiv 0 \pmod{p}$, тоді кількість розв’язків системи
 ```math
 \begin{cases}
-\left( \frac{x}{p} \right) = \alpha_1 \\
-\left( \frac{ak+b}{p} \right) = \alpha_2
+\left(\frac{x}{p}\right) = \alpha_1 \\
+\left(\frac{ak+b}{p}\right) = \alpha_2
 \end{cases}
 ```
 не перевищує $\frac{p+3}{4}$.
 <details><summary>Доведення</summary>
 
-Якщо $k \neq 0$, то існує єдине $k^{-1}$: $k \cdot k^{-1} \equiv 1 \pmod{p}$ – очевидно. З властивості маємо $\left( \frac{ak+b}{p} \right) = \left( \frac{a}{p} \right) \left( \frac{x+ba^-1}{p} \right)$, а, тому система еквівалентна $\begin{cases} \left( \frac{x}{p} \right) = \alpha_1 \\ \left( \frac{x+ba^-1}{p} \right) = \alpha_2 \left( \frac{a}{p} \right) \end{cases}$. Розглянемо суму $A = \sum_{j=0}^{p-1} \left( \left(\frac{j}{p}\right) + \alpha_1 \right)\left(\left( \frac{j+b}{p}\right) + \alpha_2 \right)$, кожний доданок рівний $4\alpha_1 \alpha_2$, якщо $j$ – розв’язок системи і нуль в усіх інших випадках, окрім $j = 0$ (тоді $\alpha_1 \left(\left(\frac{b}{p}\right) + \alpha_2\right)$) і $j=p-b$ (тоді $\alpha_2 \left(\alpha_1 + \left(\frac{-b}{p}\right) \right)$), тобто
+Якщо $k \neq 0$, то існує єдине $k^{-1}$: $k \cdot k^{-1} \equiv 1 \pmod{p}$ – очевидно. З властивості маємо $\left(\frac{ak+b}{p}\right) = \left(\frac{a}{p}\right) \left(\frac{x+ba^-1}{p}\right)$, а, тому система еквівалентна $\begin{cases} \left(\frac{x}{p}\right) = \alpha_1 \\ \left(\frac{x+ba^-1}{p}\right) = \alpha_2 \left(\frac{a}{p}\right) \end{cases}$. Розглянемо суму $A = \sum_{j=0}^{p-1} \left(\left(\frac{j}{p}\right) + \alpha_1\right)\left(\left(\frac{j+b}{p}\right) + \alpha_2\right)$, кожний доданок рівний $4\alpha_1 \alpha_2$, якщо $j$ – розв’язок системи і нуль в усіх інших випадках, окрім $j = 0$ (тоді $\alpha_1 \left(\left(\frac{b}{p}\right) + \alpha_2\right)$) і $j=p-b$ (тоді $\alpha_2 \left(\alpha_1 + \left(\frac{-b}{p}\right)\right)$), тобто
 ```math
-A = 4 \alpha_1 \alpha_2 n + \alpha_1 \left( \left( \frac{b}{p} \right) + \alpha_2 \right) + \alpha_2 \left(\left( \frac{-b}{p}\right) + \alpha_1 \right).
+A = 4 \alpha_1 \alpha_2 n + \alpha_1 \left(\left(\frac{b}{p}\right) + \alpha_2\right) + \alpha_2 \left(\left(\frac{-b}{p}\right) + \alpha_1\right).
 ```
-З іншого боку $A = \sum_{j=0}^{p-1} \left( \frac{j}{p} \right) \left( \frac{j+b}{p} \right) + \alpha_1 \sum_{j=0}^{p-1} \left( \frac{j+b}{p} \right) + \alpha_2 \sum_{j=0}^{p-1} \left( \frac{j}{p} \right) + p\alpha_1 \alpha_2$. Але за властивістю
-1. $\sum_{j=0}^{p-1} \left( \frac{j}{p} \right) = \sum_{j=0}^{p-1} \left( \frac{j+b}{p} \right) = 0$,
-2. $\sum_{j=0}^{p-1} \left( \frac{j}{p} \right)\left( \frac{j+b}{p} \right) = \sum_{j=0}^{p-1} \left( \frac{j^2+jb}{p} \right) = \sum_{j=1}^{p-1} \left( \frac{j^2+jb}{p} \right) = \sum_{j=1}^{p-1} \left( \frac{(j^{-1})^2}{p} \right) \left( \frac{j^2+jb}{p} \right) = \sum_{j=1}^{p-1} \left( \frac{1+bj^{-1}}{p} \right)$
+З іншого боку $A = \sum_{j=0}^{p-1} \left(\frac{j}{p}\right) \left(\frac{j+b}{p}\right) + \alpha_1 \sum_{j=0}^{p-1} \left(\frac{j+b}{p}\right) + \alpha_2 \sum_{j=0}^{p-1} \left(\frac{j}{p}\right) + p\alpha_1 \alpha_2$. Але за властивістю
+1. $\sum_{j=0}^{p-1} \left(\frac{j}{p}\right) = \sum_{j=0}^{p-1} \left(\frac{j+b}{p}\right) = 0$,
+2. $\sum_{j=0}^{p-1} \left(\frac{j}{p}\right)\left(\frac{j+b}{p}\right) = \sum_{j=0}^{p-1} \left(\frac{j^2+jb}{p}\right) = \sum_{j=1}^{p-1} \left(\frac{j^2+jb}{p}\right) = \sum_{j=1}^{p-1} \left(\frac{(j^{-1})^2}{p}\right) \left(\frac{j^2+jb}{p}\right) = \sum_{j=1}^{p-1} \left(\frac{1+bj^{-1}}{p}\right)$
 
-якщо $j$ пробігає значення $1,\ldots,p-1$, то $j^{-1}$ пробігає значення $1,\ldots,p-1$, і $1 + bj^{-1}$ пробігає значення $0, 2,\ldots, p-1$ тобто $\sum_{i=1}^{p-1} \left( \frac{i}{p} \right) - \left( \frac{1}{p} \right) = -1$, з урахуванням 2., і того, що $\left|\left( \frac{k}{p} \right)\right|\le 1$ одержимо потрібне. $\blacksquare$
+якщо $j$ пробігає значення $1,\ldots,p-1$, то $j^{-1}$ пробігає значення $1,\ldots,p-1$, і $1 + bj^{-1}$ пробігає значення $0, 2,\ldots, p-1$ тобто $\sum_{i=1}^{p-1} \left(\frac{i}{p}\right) - \left(\frac{1}{p}\right) = -1$, з урахуванням 2., і того, що $\left|\left(\frac{k}{p}\right)\right|\le 1$ одержимо потрібне. $\blacksquare$
 </details>
 
 Нехай $X$ – множина поганих лишків, якщо $m \in X$, то $6^{-1}(m-2)$ і $(-6)^{-1}(m+2)$ – квадратні нелишки. (Тут і далі ми вважаємо, що $p > 3$, випадок $p = 2, 3$ перевіряємо безпосередньо і знаходимо, що ці числа кубічні). Дійсно, якщо $6^{-1}(m-2) \equiv x^2$, то $m \equiv 6x^2 + 2 = (x+1)^3 + (1-x)^3$ – суперечність, так само, якщо $(-6)^{-1}(m+2) \equiv x^2$, то $\equiv = -2 -6x^2 = (x-1)^3 + (-1-x)^3$ – суперечність.
@@ -227,7 +227,7 @@ _Крок індукції_.Нехай для графа з $k$ ($k \ge 2$) ве
 ## 8
 Нехай многочлен $f(x) = x^4 + a_1 x^3 + a_2 x^2 + a_3 x + a_4$ з дійсними коефіцієнтами має локальний максимум $M$ та абсолютний мінімум $m$. Доведіть, що
 ```math
-\frac{3}{10} \left( \frac{a_1^2}{4} - \frac{2a_2}{3} \right)^2 < M - m < 3 \left( \frac{a_1^2}{4} - \frac{2a_2}{3} \right)^2.
+\frac{3}{10} \left(\frac{a_1^2}{4} - \frac{2a_2}{3}\right)^2 < M - m < 3 \left(\frac{a_1^2}{4} - \frac{2a_2}{3}\right)^2.
 ```
 <details><summary>Розв’язання</summary>
 
@@ -245,7 +245,7 @@ D = \sqrt{\frac{1}{4}a_1^2 - \frac{2}{3}a_2}. \tag{2}
 ```
 Відмітимо, що $\frac{1}{4}a_1^2 - \frac{2}{3}a_2 > 0$, бо в протилежному випадку поліном $f(x)$ не може мати локальний максимум. Графік полінома $g(x) = 4x^3 - 3D^2x$ можна отримати паралельним переносом графіка полінома $f'(x) = 4x^3 + 3a_1x^2 + 2a_2x + a_3$, бо $g(x)$ має ту ж саму відстань $D$ між екстремумами і той самий старший коефіцієнт 4. Відстань між найвіддаленішими коренями рівняння $g(x) = c$ спадає при зростанні модуля $c$ доти, поки рівняння має 3 різні корені. Максимальна відстань є $\sqrt{3}D$ і досягається при $c = 0$, найменша відстань складає $\frac{3}{2}D$ і досягається при $c = \pm D^3$. А це й означає, що $f'(x) = 4x^3 + 3a_1x^2 + 2a_2x + a_3$ має три дійсних корені, коли відстань між найвіддаленішими з них задовольняє нерівності: $\frac{3}{2} < D \le \sqrt[3]{D}$. З співвідношень (1) і (2) отримуємо остаточно:
 ```math
-\frac{3}{10} \left( \frac{1}{4}a_1^2 - \frac{2}{3}a_2 \right)^2 < \frac{81}{256} \left( \frac{1}{4}a_1^2 - \frac{2}{3}a_2 \right)^2 < M - m < 3 \left( \frac{1}{4}a_1^2 - \frac{2}{3}a_2 \right)^2.
+\frac{3}{10} \left(\frac{1}{4}a_1^2 - \frac{2}{3}a_2\right)^2 < \frac{81}{256} \left(\frac{1}{4}a_1^2 - \frac{2}{3}a_2\right)^2 < M - m < 3 \left(\frac{1}{4}a_1^2 - \frac{2}{3}a_2\right)^2.
 ```
 </details>
 

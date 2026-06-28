@@ -82,6 +82,23 @@ def normalize_plain(text: str) -> str:
     return text
 
 
+def strip_delimiter_inner_spaces(content: str) -> str:
+    left_right_delim = r"(?:\\[{}]|\\langle|\\rangle|[()\[\]{}|.])"
+
+    for _ in range(3):
+        content = re.sub(rf"(\\left{left_right_delim})[ \t]+", r"\1", content)
+        content = re.sub(rf"[ \t]+(\\right{left_right_delim})", r"\1", content)
+        content = re.sub(r"(?<!\\)([({\[])[ \t]+", r"\1", content)
+        content = re.sub(r"[ \t]+([)}\]])", r"\1", content)
+        content = re.sub(r"(\\\{)[ \t]+", r"\1", content)
+        content = re.sub(r"[ \t]+(\\\})", r"\1", content)
+        content = re.sub(r"(\\langle)[ \t]+", r"\1", content)
+        content = re.sub(r"[ \t]+(\\rangle)", r"\1", content)
+        content = re.sub(r"(?<!\\)\|[ \t]*([^|\n]*?\S)[ \t]*(?<!\\)\|", r"|\1|", content)
+
+    return content
+
+
 def normalize_math(content: str, *, display: bool) -> str:
     if not display:
         content = content.strip()
@@ -100,6 +117,7 @@ def normalize_math(content: str, *, display: bool) -> str:
         lambda match: r"\pmod{" + (match.group(1) or match.group(2) or match.group(3)).strip() + "}",
         content,
     )
+    content = strip_delimiter_inner_spaces(content)
     return content
 
 
