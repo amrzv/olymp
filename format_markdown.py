@@ -23,6 +23,7 @@ MATH_REPLACEMENTS = (
     (r"\Rightarrow", r"\implies"),
     (r"\Longleftrightarrow", r"\iff"),
     (r"\Leftrightarrow", r"\iff"),
+    (r"\dfrac", r"\frac"),
     ("\u21d2", r"\implies"),
     ("\u27f9", r"\implies"),
     ("\u21d4", r"\iff"),
@@ -74,6 +75,7 @@ def is_escaped(text: str, index: int) -> bool:
 def normalize_plain(text: str) -> str:
     text = text.replace("\u2116 ", "\u2116")
     text = re.sub("озв'яз", "озв’яз", text)
+    text = re.sub("(?<![\\w$])(\\d+)[ \\t]*\u00d7[ \\t]*(\\d+)(?![\\w$])", r"$\1\\times\2$", text)
     return text
 
 
@@ -94,6 +96,16 @@ def strip_delimiter_inner_spaces(content: str) -> str:
     return content
 
 
+def normalize_decimal_commas(content: str) -> str:
+    return re.sub(r"(?<=\d)\{,\}(?=\d)", ".", content)
+
+
+def normalize_sized_delimiters(content: str) -> str:
+    content = re.sub(r"\\bigl?(?![A-Za-z])", r"\\left", content)
+    content = re.sub(r"\\bigr?(?![A-Za-z])", r"\\right", content)
+    return content
+
+
 def normalize_math(content: str, *, display: bool) -> str:
     if not display:
         content = content.strip()
@@ -105,6 +117,8 @@ def normalize_math(content: str, *, display: bool) -> str:
     content = re.sub(r"\\Delta\s+([A-Z][A-Z0-9_{}]*)", r"\\triangle \1", content)
     content = re.sub(r"\\geq(?![A-Za-z])", r"\\ge", content)
     content = re.sub(r"\\leq(?![A-Za-z])", r"\\le", content)
+    content = normalize_decimal_commas(content)
+    content = normalize_sized_delimiters(content)
     content = re.sub(r"(?<!\\)\.\.\.", r"\\ldots", content)
     content = re.sub(r"(?<=[A-Z])\s*\|\|\s*(?=[A-Z])", r" \\parallel ", content)
     content = re.sub(
@@ -350,9 +364,14 @@ def normalize_markdown_layout(text: str) -> str:
     text = re.sub(r"</details>\s*\+\s*</details>", "</details></details>", text)
     text = re.sub(r"[ \t]+\n", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
-    text = re.sub(r"\n{2,}(<details><summary>)", r"\n\1", text)
+    text = re.sub(r"(?m)(?:\r?\n){2,}(?=^\$\$[ \t]*(?:\r?\n|$))", "\n", text)
+    text = re.sub(r"(?m)(^\$\$[ \t]*\r?\n)(?:\r?\n)+", r"\1", text)
+    text = re.sub(r"(?m)^(#{1,6}[ \t]+\d+[.)]?)[ \t]*(?:\r?\n){2,}(?=[^#\s])", r"\1\n", text)
+    text = re.sub(r"(?:\r?\n){2,}(?=<details\b)", "\n", text)
     text = normalize_summary_spacing(text)
     text = re.sub(r"(?m)^>\s*</details>\s*$", "</details>", text)
+    text = re.sub(r"(?:\r?\n){2,}(?=</details\b)", "\n", text)
+    text = re.sub(r"(?m)([^\r\n])\r?\n(?=#{1,6}[ \t]+\d+[.)]?[ \t]*(?:\r?\n|$))", r"\1\n\n", text)
     return text.rstrip() + "\n"
 
 
