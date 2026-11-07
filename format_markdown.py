@@ -218,7 +218,7 @@ def format_inline_math(content: str, *, split_commas: bool) -> str:
     return f"${content}${trailing}"
 
 
-def process_non_fenced(text: str, path: Path, issues: list[Issue], *, split_commas: bool) -> str:
+def process_non_fenced(text: str, path: Path, issues: list[Issue], *, split_commas: bool, details_depth: int) -> tuple[str, int]:
     out: list[str] = []
     plain: list[str] = []
     i = 0
@@ -229,15 +229,41 @@ def process_non_fenced(text: str, path: Path, issues: list[Issue], *, split_comm
             plain.clear()
 
     while i < len(text):
+        if text[i] == "`" and not is_escaped(text, i):
+            marker = re.match(r"`+", text[i:]).group(0)
+            closer = re.search(r"(?<!`)" + re.escape(marker) + r"(?!`)", text[i + len(marker) :])
+            if closer is not None:
+                end = i + len(marker) + closer.end()
+                flush_plain()
+                out.append(text[i:end])
+                i = end
+                continue
+
+        if text[i] == "<" and not is_escaped(text, i):
+            tag = re.match(r"<(/?)details(?=[\s>])(?:[^>\"']|\"[^\"]*\"|'[^']*')*>", text[i:], re.IGNORECASE)
+            if tag is not None:
+                details_depth = max(0, details_depth - 1) if tag.group(1) else details_depth + 1
+                plain.append(tag.group(0))
+                i += tag.end()
+                continue
+
         if text.startswith("$$", i) and not is_escaped(text, i):
             end = text.find("$$", i + 2)
+            while end != -1 and is_escaped(text, end):
+                end = text.find("$$", end + 2)
             if end == -1:
                 issues.append(Issue(path, line_at(text, i), "unclosed display math block"))
                 plain.append(text[i:])
                 break
             flush_plain()
-            body = normalize_math(text[i + 2 : end], display=True)
-            out.append("$$" + body + "$$")
+            body = text[i + 2 : end]
+            if details_depth:
+                out.append("$$" + normalize_math(body, display=True) + "$$")
+            else:
+                body = re.sub(r"[ \t]*[\r\n]+[ \t]*", " ", body)
+                out.append(format_inline_math(body, split_commas=split_commas))
+                if text.startswith("$", end + 2):
+                    out.append(" ")
             i = end + 2
             continue
 
@@ -267,7 +293,7 @@ def process_non_fenced(text: str, path: Path, issues: list[Issue], *, split_comm
         i += 1
 
     flush_plain()
-    return "".join(out)
+    return "".join(out), details_depth
 
 
 def process_math_fence(segment: str) -> str:
@@ -360,7 +386,7 @@ def normalize_summary_spacing(text: str) -> str:
     return "".join(out)
 
 
-def normalize_markdown_layout(text: str) -> str:
+def normalize_markdown_layout(text: str, *, path: Path) -> str:
     text = re.sub(r"</details>\s*\+\s*</details>", "</details></details>", text)
     text = re.sub(r"[ \t]+\n", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
@@ -372,6 +398,9 @@ def normalize_markdown_layout(text: str) -> str:
     text = re.sub(r"(?m)^>\s*</details>\s*$", "</details>", text)
     text = re.sub(r"(?:\r?\n){2,}(?=</details\b)", "\n", text)
     text = re.sub(r"(?m)([^\r\n])\r?\n(?=#{1,6}[ \t]+\d+[.)]?[ \t]*(?:\r?\n|$))", r"\1\n\n", text)
+    # Collapse heading gaps after problem spacing, leaving fenced examples alone.
+    heading = r"[ ]{0,3}#{1,6}(?:[ \t]+[^\r\n]*)?"
+    text = "".join(re.sub(rf"(?m)^({heading})(?:\r?\n){{2,}}(?={heading}(?:\r?\n|$))", r"\1\n", segment) if kind == "plain" else segment for kind, segment in split_fenced_segments(text, path, []))
     return text.rstrip() + "\n"
 
 
@@ -422,15 +451,17 @@ def validate(path: Path, text: str, issues: list[Issue]) -> None:
 def format_text(path: Path, text: str, *, split_commas: bool) -> FormatResult:
     issues: list[Issue] = []
     pieces: list[str] = []
+    details_depth = 0
     for kind, segment in split_fenced_segments(text, path, issues):
         if kind == "plain":
-            pieces.append(process_non_fenced(segment, path, issues, split_commas=split_commas))
+            formatted_segment, details_depth = process_non_fenced(segment, path, issues, split_commas=split_commas, details_depth=details_depth)
+            pieces.append(formatted_segment)
         elif kind == "math_fence":
             pieces.append(process_math_fence(segment))
         else:
             pieces.append(segment)
 
-    formatted = normalize_markdown_layout("".join(pieces))
+    formatted = normalize_markdown_layout("".join(pieces), path=path)
     validate(path, formatted, issues)
     return FormatResult(text=formatted, issues=issues)
 
